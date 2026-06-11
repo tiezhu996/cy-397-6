@@ -2,4 +2,5 @@ CREATE TABLE IF NOT EXISTS contract_templates (id BIGINT PRIMARY KEY AUTO_INCREM
 CREATE TABLE IF NOT EXISTS contracts (id BIGINT PRIMARY KEY AUTO_INCREMENT, user_id BIGINT, template_id BIGINT, title VARCHAR(120), content MEDIUMTEXT, status VARCHAR(32), signed_at DATETIME, signers JSON);
 CREATE TABLE IF NOT EXISTS legal_tickets (id BIGINT PRIMARY KEY AUTO_INCREMENT, user_id BIGINT, type VARCHAR(32), description TEXT, status VARCHAR(32), attachments JSON);
 CREATE TABLE IF NOT EXISTS legal_faq (id BIGINT PRIMARY KEY AUTO_INCREMENT, category VARCHAR(60), question VARCHAR(200), answer TEXT);
+CREATE TABLE IF NOT EXISTS contract_ticket_relations (id BIGINT PRIMARY KEY AUTO_INCREMENT, contract_id BIGINT NOT NULL, ticket_id BIGINT NOT NULL, INDEX idx_contract_id (contract_id), INDEX idx_ticket_id (ticket_id), UNIQUE KEY uk_contract_ticket (contract_id, ticket_id));
 INSERT INTO legal_faq(category, question, answer) VALUES ('合同纠纷','合同逾期未签署怎么办','可先发出书面催告并保存沟通证据。') ON DUPLICATE KEY UPDATE question=question;
